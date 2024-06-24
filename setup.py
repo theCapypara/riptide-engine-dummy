@@ -1,9 +1,10 @@
 __version__ = '0.8.0'
-from glob import glob
-from setuptools import setup, find_packages
 
 # README read-in
 from os import path
+
+from setuptools import setup, find_packages
+
 this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
@@ -34,6 +35,6 @@ setup(
     ],
     entry_points='''
         [riptide.engine]
-        docker=riptide_engine_dummy.engine:DummyEngine
+        dummy=riptide_engine_dummy.engine:DummyEngine
     ''',
 )
