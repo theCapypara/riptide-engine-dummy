@@ -10,7 +10,7 @@ from riptide_engine_docker import named_volumes
 
 
 async def faux_task(queue: ResultQueue):
-    queue.put(StartStopResultStep(current_step=1, steps=None, text='Pretending...'))
+    queue.put(StartStopResultStep(current_step=1, steps=None, text="Pretending..."))
     await asyncio.sleep(2)
     queue.end()
 
@@ -19,12 +19,9 @@ class DummyEngine(AbstractEngine):
     def __init__(self):
         self._running_services: Dict[str, Dict[str, bool]] = {}
 
-    def start_project(self,
-                      project: Project,
-                      services: List[str],
-                      quick=False,
-                      command_group: str = "default") -> MultiResultQueue[StartStopResultStep]:
-
+    def start_project(
+        self, project: Project, services: List[str], quick=False, command_group: str = "default"
+    ) -> MultiResultQueue[StartStopResultStep]:
         with riptide_start_project_ctx(project):
             if project["name"] not in self._running_services:
                 self._running_services[project["name"]] = {}
@@ -37,7 +34,6 @@ class DummyEngine(AbstractEngine):
                 loop.run_in_executor(
                     None,
                     faux_task,
-
                     queue,
                 )
 
@@ -55,7 +51,6 @@ class DummyEngine(AbstractEngine):
             loop.run_in_executor(
                 None,
                 faux_task,
-
                 queue,
             )
 
@@ -76,32 +71,26 @@ class DummyEngine(AbstractEngine):
             return False
         return self._running_services[project["name"]][service_name]
 
-    def container_name_for(self, project: 'Project', service_name: str):
+    def container_name_for(self, project: "Project", service_name: str):
         return f"{project['name']}-{service_name}"
 
     def address_for(self, project: Project, service_name: str) -> Union[None, Tuple[str, int]]:
         return None
 
-    def cmd(self,
-            project: 'Project',
-            command_name: str,
-            arguments: List[str],
-            unimportant_paths_unsynced=False) -> int:
+    def cmd(self, project: "Project", command_name: str, arguments: List[str], unimportant_paths_unsynced=False) -> int:
         pass
 
-    def cmd_in_service(self,
-                       project: 'Project',
-                       command_name: str,
-                       service_name: str,
-                       arguments: List[str]) -> int:
+    def cmd_in_service(self, project: "Project", command_name: str, service_name: str, arguments: List[str]) -> int:
         pass
 
-    def service_fg(self,
-                   project: 'Project',
-                   service_name: str,
-                   arguments: List[str],
-                   unimportant_paths_unsynced=False,
-                   command_group: str = "default") -> None:
+    def service_fg(
+        self,
+        project: "Project",
+        service_name: str,
+        arguments: List[str],
+        unimportant_paths_unsynced=False,
+        command_group: str = "default",
+    ) -> None:
         pass
 
     def exec(self, project: Project, service_name: str, cols=None, lines=None, root=False) -> None:
@@ -110,16 +99,16 @@ class DummyEngine(AbstractEngine):
     def exec_custom(self, project: Project, service_name: str, command: str, cols=None, lines=None, root=False) -> None:
         pass
 
-    def cmd_detached(self, project: 'Project', command: 'Command', run_as_root=False):
+    def cmd_detached(self, project: "Project", command: "Command", run_as_root=False):
         pass
 
-    def pull_images(self, project: 'Project', line_reset='\n', update_func=lambda msg: None) -> None:
+    def pull_images(self, project: "Project", line_reset="\n", update_func=lambda msg: None) -> None:
         update_func("Done!\n\n")
 
-    def path_rm(self, path, project: 'Project'):
+    def path_rm(self, path, project: "Project"):
         pass
 
-    def path_copy(self, fromm, to, project: 'Project'):
+    def path_copy(self, fromm, to, project: "Project"):
         pass
 
     def performance_value_for_auto(self, key: str, platform: str) -> bool:
@@ -140,5 +129,5 @@ class DummyEngine(AbstractEngine):
     def create_named_volume(self, name: str) -> None:
         pass
 
-    def get_service_or_command_image_labels(self, obj: Union['Service', 'Command']) -> Optional[Dict[str, str]]:
+    def get_service_or_command_image_labels(self, obj: Union["Service", "Command"]) -> Optional[Dict[str, str]]:
         return None
