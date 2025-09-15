@@ -78,7 +78,7 @@ class DummyEngine(AbstractEngine):
     def address_for(self, project: Project, service_name: str) -> tuple[str, int] | None:
         return None
 
-    def cmd(self, project: Project, command_name: str, arguments: list[str], unimportant_paths_unsynced=False) -> int:
+    def cmd(self, command: Command, arguments: list[str], *, working_directory: str|None = None) -> int:
         return 0
 
     def cmd_in_service(self, project: Project, command_name: str, service_name: str, arguments: list[str]) -> int:
