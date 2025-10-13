@@ -84,7 +84,7 @@ class DummyEngine(AbstractEngine):
         arguments: list[str],
         *,
         working_directory: str | None = None,
-        extra_mounts: dict[str, SimpleBindVolume] = None,
+        extra_volumes: dict[str, SimpleBindVolume] | None = None,
     ) -> int:
         return 0
 
