@@ -5,7 +5,7 @@ import asyncio
 from riptide.config.document.command import Command
 from riptide.config.document.project import Project
 from riptide.config.document.service import Service
-from riptide.engine.abstract import AbstractEngine
+from riptide.engine.abstract import AbstractEngine, SimpleBindVolume
 from riptide.engine.project_start_ctx import riptide_start_project_ctx
 from riptide.engine.results import MultiResultQueue, ResultQueue, StartStopResultStep
 
@@ -78,7 +78,14 @@ class DummyEngine(AbstractEngine):
     def address_for(self, project: Project, service_name: str) -> tuple[str, int] | None:
         return None
 
-    def cmd(self, project: Project, command_name: str, arguments: list[str], unimportant_paths_unsynced=False) -> int:
+    def cmd(
+        self,
+        command: Command,
+        arguments: list[str],
+        *,
+        working_directory: str | None = None,
+        extra_volumes: dict[str, SimpleBindVolume] | None = None,
+    ) -> int:
         return 0
 
     def cmd_in_service(self, project: Project, command_name: str, service_name: str, arguments: list[str]) -> int:
