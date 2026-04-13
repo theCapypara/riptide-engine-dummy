@@ -22,7 +22,7 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
-    "riptide-lib >= 0.10, < 0.11"
+    "riptide-lib >= 0.10.1, < 0.11"
 ]
 
 [project.urls]
